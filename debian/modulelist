@@ -3,6 +3,7 @@ common PDO pdo 10
 enchant Enchant
 gd GD
 gmp GMP
+igbinary igbinary
 imap IMAP
 interbase Interbase
 intl Internationalisation
