@@ -1,3 +1,12 @@
+php5 (5.4.11-1~dotdeb.0) stable; urgency=low
+
+  * New upstream release
+  * Pluggable igbinary support in php5-igbinary
+  * mysqlnd.h is now included in php5-dev
+  * Sync with Debian
+
+ -- Guillaume Plessis <gui@dotdeb.org>  Thu, 17 Jan 2013 19:41:42 +0100
+
 php5 (5.4.10-1~dotdeb.0) stable; urgency=low
 
   * New upstream release
