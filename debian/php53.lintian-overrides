@@ -1,0 +1,2 @@
+php53-common: non-standard-dir-perm var/lib/php53/ 1733 != 0755
+php53-common: package-contains-empty-directory usr/lib/php53/libexec/

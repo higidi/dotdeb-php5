@@ -1,0 +1,15 @@
+#!/bin/sh
+
+set -e
+
+#DEBHELPER#
+
+if [ "$1" != "configure" ]; then
+    exit 0
+fi
+
+phpini="/etc/php53/cgi/php.ini"
+
+ucf /usr/share/php53/php.ini-production $phpini
+
+exit 0

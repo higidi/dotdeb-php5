@@ -2,7 +2,7 @@
 
 set -e
 
-phpini=/etc/php5/@sapi@/php.ini
+phpini=/etc/php53/@sapi@/php.ini
 
 case "$1" in
 purge)

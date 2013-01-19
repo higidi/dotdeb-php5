@@ -30,7 +30,7 @@ rm -rf $datadir
 mkdir -p $datadir
 chmod go-rx $datadir
 
-mysql_install_db --datadir=$datadir --rpm --force >> $datadir/bootstrap.log 2>&1
+mysql_install_db --datadir=$datadir --verbose --rpm --force >> $datadir/bootstrap.log 2>&1
 
 tmpf=$(mktemp)
 cat > "$tmpf" <<EOF

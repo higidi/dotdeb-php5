@@ -1,0 +1,221 @@
+Index: php-5.3.18/configure.in
+===================================================================
+--- php-5.3.18.orig/configure.in	2012-11-15 21:40:13.731089714 +0100
++++ php-5.3.18/configure.in	2012-11-15 21:41:01.020659469 +0100
+@@ -1014,7 +1014,7 @@
+ fi
+ 
+ PHP_ARG_WITH(pear, [whether to install PEAR],
+-[  --with-pear=DIR         Install PEAR in DIR [PREFIX/lib/php5]
++[  --with-pear=DIR         Install PEAR in DIR [PREFIX/lib/php53]
+   --without-pear          Do not install PEAR], DEFAULT, yes)
+ 
+ if test "$PHP_PEAR" != "no"; then
+@@ -1044,7 +1044,7 @@
+   if test "$PHP_PEAR" = "DEFAULT" || test "$PHP_PEAR" = "yes"; then
+     case $PHP_LAYOUT in
+       GNU) PEAR_INSTALLDIR=$datadir/pear;;
+-      *)   PEAR_INSTALLDIR=$libdir/php5;;
++      *)   PEAR_INSTALLDIR=$libdir/php53;;
+     esac
+   fi
+ 
+@@ -1099,12 +1099,12 @@
+ 
+ case $libdir in
+   '${exec_prefix}/lib')
+-    libdir=$libdir/php5
++    libdir=$libdir/php53
+     ;;
+ esac
+ case $datadir in
+   '${prefix}/share')
+-    datadir=$datadir/php5
++    datadir=$datadir/php53
+     ;;
+ esac
+ 
+Index: php-5.3.18/ext/ext_skel
+===================================================================
+--- php-5.3.18.orig/ext/ext_skel	2012-11-15 21:42:28.604054884 +0100
++++ php-5.3.18/ext/ext_skel	2012-11-15 21:42:44.601137768 +0100
+@@ -70,7 +70,7 @@
+ fi
+ 
+ if test -z "$skel_dir"; then
+-  skel_dir="/usr/lib/php5/skeleton"
++  skel_dir="/usr/lib/php53/skeleton"
+ fi
+ 
+ ## convert skel_dir to full path
+Index: php-5.3.18/php.ini-development
+===================================================================
+--- php-5.3.18.orig/php.ini-development	2012-11-15 21:45:31.288051658 +0100
++++ php-5.3.18/php.ini-development	2012-11-15 21:45:46.180993915 +0100
+@@ -793,7 +793,7 @@
+ ;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+ ; UNIX: "/path1:/path2"
+-;include_path = ".:/usr/share/php"
++;include_path = ".:/usr/share/php53"
+ ;
+ ; Windows: "\path1;\path2"
+ ;include_path = ".;c:\php\includes"
+Index: php-5.3.18/php.ini-production
+===================================================================
+--- php-5.3.18.orig/php.ini-production	2012-11-15 21:55:33.801574936 +0100
++++ php-5.3.18/php.ini-production	2012-11-15 21:46:08.727087906 +0100
+@@ -793,7 +793,7 @@
+ ;;;;;;;;;;;;;;;;;;;;;;;;;
+ 
+ ; UNIX: "/path1:/path2"
+-;include_path = ".:/usr/share/php"
++;include_path = ".:/usr/share/php53"
+ ;
+ ; Windows: "\path1;\path2"
+ ;include_path = ".;c:\php\includes"
+Index: php-5.3.18/sapi/cli/php.1.in
+===================================================================
+--- php-5.3.18.orig/sapi/cli/php.1.in	2012-11-15 21:55:59.527059045 +0100
++++ php-5.3.18/sapi/cli/php.1.in	2012-11-15 21:56:43.500418235 +0100
+@@ -336,13 +336,13 @@
+ Show configuration file names
+ .SH FILES
+ .TP 15
+-.B /etc/php5/cli/php.ini
++.B /etc/php53/cli/php.ini
+ The configuration file for the CLI version of PHP.
+ .TP
+-.B /etc/php5/cgi/php.ini
++.B /etc/php53/cgi/php.ini
+ The configuration file for the CGI version of PHP.
+ .TP
+-.B /etc/php5/apache2/php.ini
++.B /etc/php53/apache2/php.ini
+ The configuration file for the version of PHP that apache2 uses.
+ .SH EXAMPLES
+ .TP 5
+Index: php-5.3.18/scripts/Makefile.frag
+===================================================================
+--- php-5.3.18.orig/scripts/Makefile.frag	2012-11-15 21:57:07.184055688 +0100
++++ php-5.3.18/scripts/Makefile.frag	2012-11-15 21:57:53.031193252 +0100
+@@ -3,8 +3,8 @@
+ # Build environment install
+ #
+ 
+-phpincludedir = $(includedir)/php5
+-phpbuilddir = $(prefix)/lib/php5/build
++phpincludedir = $(includedir)/php53
++phpbuilddir = $(prefix)/lib/php53/build
+ 
+ BUILD_FILES = \
+ 	scripts/phpize.m4 \
+Index: php-5.3.18/scripts/php-config.in
+===================================================================
+--- php-5.3.18.orig/scripts/php-config.in	2012-11-15 21:57:55.787590522 +0100
++++ php-5.3.18/scripts/php-config.in	2012-11-15 21:58:10.180746347 +0100
+@@ -5,7 +5,7 @@
+ exec_prefix="@exec_prefix@"
+ version="@PHP_VERSION@"
+ vernum="@PHP_VERSION_ID@"
+-include_dir="@includedir@/php5"
++include_dir="@includedir@/php53"
+ includes="-I$include_dir -I$include_dir/main -I$include_dir/TSRM -I$include_dir/Zend -I$include_dir/ext -I$include_dir/ext/date/lib $(getconf LFS_CFLAGS)"
+ ldflags="@PHP_LDFLAGS@"
+ libs="@EXTRA_LIBS@"
+Index: php-5.3.18/scripts/phpize.in
+===================================================================
+--- php-5.3.18.orig/scripts/phpize.in	2012-11-15 21:58:33.964071342 +0100
++++ php-5.3.18/scripts/phpize.in	2012-11-15 21:58:46.271184948 +0100
+@@ -3,8 +3,8 @@
+ # Variable declaration
+ prefix='@prefix@'
+ exec_prefix="`eval echo @exec_prefix@`"
+-phpdir="$prefix/lib/php5/build"
+-includedir="$prefix/include/php5"
++phpdir="$prefix/lib/php53/build"
++includedir="$prefix/include/php53"
+ aclocaldir="$prefix/share/aclocal"
+ builddir="`pwd`"
+ SED="@SED@"
+Index: php-5.3.18/ext/standard/info.c
+===================================================================
+--- php-5.3.18.orig/ext/standard/info.c	2012-11-15 22:00:23.208053209 +0100
++++ php-5.3.18/ext/standard/info.c	2012-11-15 22:04:13.071092577 +0100
+@@ -934,6 +934,15 @@
+ 		}
+ 		php_info_print_box_end();
+ 
++		/* Higidi */
++		php_info_print_box_start(0);
++		if (sapi_module.phpinfo_as_text) {
++			PUTS("Program was modified by higidi (http://www.higidi.de/).");
++		} else {
++			PUTS("Program was modified by <a href=\"http://www.higidi.de/\">higidi</a>.");
++		}
++		php_info_print_box_end();
++
+ 		efree(php_uname);
+ 	}
+ 
+Index: php-5.3.18/sapi/fpm/php-fpm.conf.in
+===================================================================
+--- php-5.3.18.orig/sapi/fpm/php-fpm.conf.in	2012-11-15 22:04:56.383622262 +0100
++++ php-5.3.18/sapi/fpm/php-fpm.conf.in	2012-11-15 22:06:17.971088010 +0100
+@@ -12,7 +12,7 @@
+ ; Relative path can also be used. They will be prefixed by:
+ ;  - the global prefix if it's been set (-p arguement)
+ ;  - @prefix@ otherwise
+-;include=@EXPANDED_SYSCONFDIR@/php5/fpm/*.conf
++;include=@EXPANDED_SYSCONFDIR@/php53/fpm/*.conf
+ 
+ ;;;;;;;;;;;;;;;;;;
+ ; Global Options ;
+@@ -22,14 +22,14 @@
+ ; Pid file
+ ; Note: the default prefix is @EXPANDED_LOCALSTATEDIR@
+ ; Default Value: none
+-pid = @EXPANDED_LOCALSTATEDIR@/run/php5-fpm.pid
++pid = @EXPANDED_LOCALSTATEDIR@/run/php53-fpm.pid
+ 
+ ; Error log file
+ ; If it's set to "syslog", log is sent to syslogd instead of being written
+ ; in a local file.
+ ; Note: the default prefix is @EXPANDED_LOCALSTATEDIR@
+ ; Default Value: log/php-fpm.log
+-error_log = @EXPANDED_LOCALSTATEDIR@/log/php5-fpm.log
++error_log = @EXPANDED_LOCALSTATEDIR@/log/php53-fpm.log
+ 
+ ; syslog_facility is used to specify what type of program is logging the
+ ; message. This lets syslogd specify that messages from different facilities
+@@ -42,7 +42,7 @@
+ ; instances running on the same server, you can change the default value
+ ; which must suit common needs.
+ ; Default Value: php-fpm
+-;syslog.ident = php-fpm
++syslog.ident = php53-fpm
+ 
+ ; Log level
+ ; Possible Values: alert, error, warning, notice, debug
+@@ -118,7 +118,7 @@
+ 
+ ; To configure the pools it is recommended to have one .conf file per
+ ; pool in the following directory:
+-include=@EXPANDED_SYSCONFDIR@/php5/fpm/pool.d/*.conf
++include=@EXPANDED_SYSCONFDIR@/php53/fpm/pool.d/*.conf
+ 
+ ; Start a new pool named 'www'.
+ ; the variable $pool can we used in any directive and will be replaced by the
+Index: php-5.3.18/sapi/fpm/fpm/fpm_conf.c
+===================================================================
+--- php-5.3.18.orig/sapi/fpm/fpm/fpm_conf.c	2012-11-15 22:08:01.435584515 +0100
++++ php-5.3.18/sapi/fpm/fpm/fpm_conf.c	2012-11-15 22:08:25.700488851 +0100
+@@ -1609,7 +1609,7 @@
+ 		char *tmp;
+ 
+ 		if (fpm_globals.prefix == NULL) {
+-			spprintf(&tmp, 0, "%s/php5/fpm/php-fpm.conf", PHP_SYSCONFDIR);
++			spprintf(&tmp, 0, "%s/php53/fpm/php-fpm.conf", PHP_SYSCONFDIR);
+ 		} else {
+ 			spprintf(&tmp, 0, "%s/etc/php-fpm.conf", fpm_globals.prefix);
+ 		}

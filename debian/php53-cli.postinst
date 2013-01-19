@@ -1,0 +1,16 @@
+#!/bin/sh
+
+set -e
+
+#DEBHELPER#
+
+if [ "$1" != "configure" ]; then
+    exit 0
+fi
+
+phpini="/etc/php53/cli/php.ini"
+
+ucf /usr/share/php53/php.ini-production.cli $phpini
+
+
+exit 0

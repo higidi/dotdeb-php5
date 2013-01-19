@@ -2,13 +2,13 @@
 
 This source has cherry picked patches up to r307103 in PHP_5_3 branch
 
- == Generation of the php5-dbg package Depends ==
+ == Generation of the php53-dbg package Depends ==
 
 The following command can be used to generate a heuristic list of
-packages the php5-dbg package probably needs to Depend on:
+packages the php53-dbg package probably needs to Depend on:
 
 dh_testdir && egrep '^Package' debian/control | cut '-d ' -f2 | \
-	egrep -v '(^php5|dbg|dev|common|pear)$' | tr "\n" "|" | sed 's/|$//' |\
+	egrep -v '(^php53|dbg|dev|common|pear)$' | tr "\n" "|" | sed 's/|$//' |\
 	sed -r 's/([^|]+)(\||$)/ \1 (= ${binary:Version}) \2/g'; echo
 
  == Used patch system ==
@@ -41,7 +41,7 @@ The format of these files is:
 "<package name> <fancy name, one word> <extension name>"
 
 E.g. for, if we want the mysql extension to be shipped in the
-php5-mysql package we use:
+php53-mysql package we use:
 "mysql MySQL mysql"
 But we also want mysqli and the PDO in the same package, so we add the
 following lines to extramoduleslist:
